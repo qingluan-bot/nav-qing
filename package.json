@@ -1,8 +1,8 @@
 {
   "name": "nav",
   "version": "17.0.0",
-  "author": "xiejiahe",
-  "homepage": "https://github.com/xjh22222228/nav",
+  "author": "qingluan-bot",
+  "homepage": "https://github.com/qingluan-bot/nav-qing",
   "scripts": {
     "formatlint": "npm run format && npm run lint",
     "lint": "oxlint",

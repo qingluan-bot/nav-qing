@@ -93,7 +93,6 @@ export const getConfig = () => {
     branch: config['branch'],
     hashMode: config['hashMode'],
     address: config['address'],
-    password: config['password'],
     email: config['email'],
     port: config['port'],
     datetime: dayjs.tz().format('YYYY-MM-DD HH:mm'),

@@ -7,10 +7,9 @@ import { FormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
 import { $t } from 'src/locale'
 import { NzMessageService } from 'ng-zorro-antd/message'
-import { setAuthCode, getAuthCode, removeAuthCode } from 'src/utils/user'
-import { getUserInfo, updateUserInfo } from 'src/api'
+import { setAuthCode, getAuthCode, removeAuthCode, setToken } from 'src/utils/user'
+import { getUserInfo, updateUserInfo, verifyToken } from 'src/api'
 import { NzInputModule } from 'ng-zorro-antd/input'
-import config from '../../../../nav.config.json'
 import { NzButtonModule } from 'ng-zorro-antd/button'
 import { NzSpinModule } from 'ng-zorro-antd/spin'
 
@@ -62,10 +61,21 @@ export default class AuthComponent {
       return
     }
 
-    // 支持密码登录（Fork/Pages 用户免 nav3 授权码）
-    if (this.authCode === (config as any).password) {
-      setAuthCode(this.authCode)
-      window.location.reload()
+    // GitHub PAT 登录（Fork/Pages 用户免 nav3 授权码）
+    if (this.authCode.startsWith('github_pat_') || this.authCode.startsWith('ghp_')) {
+      this.submitting = true
+      verifyToken(this.authCode)
+        .then(() => {
+          setToken(this.authCode)
+          setAuthCode(this.authCode)
+          window.location.reload()
+        })
+        .catch(() => {
+          this.message.error('GitHub Token 无效或已过期')
+        })
+        .finally(() => {
+          this.submitting = false
+        })
       return
     }
 

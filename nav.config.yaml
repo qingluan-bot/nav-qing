@@ -28,7 +28,7 @@ hashMode: true
 address: ''
 
 # 自有部署后台登录密码
-password: qingluan2026
+password: admin
 
 # 自有部署启动端口
 port: 7777

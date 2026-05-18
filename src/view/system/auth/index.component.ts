@@ -10,6 +10,7 @@ import { NzMessageService } from 'ng-zorro-antd/message'
 import { setAuthCode, getAuthCode, removeAuthCode } from 'src/utils/user'
 import { getUserInfo, updateUserInfo } from 'src/api'
 import { NzInputModule } from 'ng-zorro-antd/input'
+import config from '../../../../nav.config.json'
 import { NzButtonModule } from 'ng-zorro-antd/button'
 import { NzSpinModule } from 'ng-zorro-antd/spin'
 
@@ -58,6 +59,13 @@ export default class AuthComponent {
 
   handleSubmitAuthCode() {
     if (this.submitting || !this.authCode) {
+      return
+    }
+
+    // 支持密码登录（Fork/Pages 用户免 nav3 授权码）
+    if (this.authCode === (config as any).password) {
+      setAuthCode(this.authCode)
+      window.location.reload()
       return
     }
 

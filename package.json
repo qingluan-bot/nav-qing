@@ -22,6 +22,16 @@
   },
   "type": "module",
   "private": true,
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild",
+      "lmdb",
+      "msgpackr-extract",
+      "puppeteer",
+      "sharp"
+    ]
+  },
   "dependencies": {
     "@angular/animations": "^21.2.13",
     "@angular/common": "^21.2.13",
